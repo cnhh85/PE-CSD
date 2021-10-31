@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class DoublyLinkedList<E> {
     private Node<E> header;
     private Node<E> trailer;
@@ -35,6 +37,17 @@ public class DoublyLinkedList<E> {
 
     public void addLast(E e) {
         addBetween(e, trailer.getPrev(), trailer);
+    }
+
+    public ArrayList<E> convertToList() {
+        ArrayList<E> result = new ArrayList<>();
+        Node<E> current = header.getNext();
+        while (current != trailer) {
+            result.add(current.getElement());
+            current = current.getNext();
+        }
+
+        return result;
     }
 
     private void addBetween(E e, Node<E> predecessor, Node<E> successor) {
