@@ -62,10 +62,10 @@ public class Main {
                 System.out.println("Invalid input, please try again!\n");
             }
         } while (quantity <= 0);
-        for (int i = 0; i <= quantity; i++) {
+        for (int i = 0; i < quantity; i++) {
             String name = null, className = null;
             double average = -1;
-            System.out.println("Add student number " + i + ": ");
+            System.out.println("Add student number " + (i + 1) + ": ");
 
             do {
                 System.out.print("Enter name: ");
@@ -89,6 +89,7 @@ public class Main {
                     average = Double.parseDouble(sc.nextLine());
                 } catch (NumberFormatException e) {
                     System.out.println("Invalid input, please try again!\n");
+                    continue;
                 }
                 if (average < 0 || average > 10) {
                     System.out.println("Invalid score please try again!");
@@ -123,16 +124,18 @@ public class Main {
         if (result.isEmpty()) {
             System.out.println("No student in " + className);
         } else {
+            System.out
+                    .println(className + " has " + result.size() + " " + (result.size() == 1 ? "student" : "students"));
             for (Student student : result) {
                 printStudent(student);
             }
         }
-
     }
 
     private static void sortByScore(DoublyLinkedList<Student> students) {
         ArrayList<Student> list = students.convertToList();
         list.stream().sorted((s1, s2) -> getSorter(s1.getAverage(), s2.getAverage()));
+        System.out.println("SORTED LIST: ");
         for (Student student : list) {
             printStudent(student);
         }
@@ -150,12 +153,12 @@ public class Main {
                     printStudent(student);
                 }
             }
-            System.out.println("====================================");
+            System.out.println("=====================================================");
         }
     }
 
     private static void printStudent(Student student) {
-        System.out.format("|%30s|%6|%6lf|%6s|\n", student.getName(), student.getClassName(), student.getAverage(),
+        System.out.format("|%30s|%6s|%6.2f|%6s|\n", student.getName(), student.getClassName(), student.getAverage(),
                 student.getRank());
     }
 
